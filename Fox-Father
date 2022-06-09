@@ -7,7 +7,7 @@ import random
 import requests
 from collections import deque
 from telethon.tl.types import ChannelParticipantsAdmins
-from uniborg.util import admin_cmd
+#from uniborg.util import admin_cmd
 from datetime import datetime
 from time import sleep
 from telethon.tl.functions.photos import UploadProfilePhotoRequest
@@ -192,7 +192,7 @@ async def thankhandler(event):
 			s = random.choice(thank)
 			return await event.edit(f"{s}")
 
-@client.on(admin_cmd(".tagall"))
+@client.on(events.NewMessage(pattern=".tagall"))
 async def _(event):
 		if event.fwd_from:
 			return
@@ -201,7 +201,7 @@ async def _(event):
 		async for x in client.iter_participants(chat, 100):
 			mentions += f" \n [{x.first_name}](tg://user?id={x.id})"
 			await event.edit(mentions)
-@client.on(admin_cmd(".admins"))
+@client.on(events.NewMessage(pattern=".admins"))
 async def _(event):
 		if event.fwd_from:
 			return
